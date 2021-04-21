@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "555801107751",
+    "project_id": "lojaflutter-d6ad4",
+    "storage_bucket": "lojaflutter-d6ad4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:555801107751:android:3f8cb5c7ec3b3e4ec41d02",
+        "android_client_info": {
+          "package_name": "br.com.alves.gerente_loja"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "555801107751-p8kib507ikacrpiped1ufrdhmh2i5ubo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBapltYSAj-vS8HJNS5ITz-iiNLM4N0ic8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "555801107751-p8kib507ikacrpiped1ufrdhmh2i5ubo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:555801107751:android:07676b73dd56147ec41d02",
+        "android_client_info": {
+          "package_name": "br.com.alves.loja_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "555801107751-p8kib507ikacrpiped1ufrdhmh2i5ubo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBapltYSAj-vS8HJNS5ITz-iiNLM4N0ic8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "555801107751-p8kib507ikacrpiped1ufrdhmh2i5ubo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

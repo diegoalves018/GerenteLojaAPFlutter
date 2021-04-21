@@ -19,5 +19,5 @@ class LoginValidators{
         sink.addError("Senha inválida, deve conter pelo menos 6 caracteres");
       }
     }
-  )
+  );
 }

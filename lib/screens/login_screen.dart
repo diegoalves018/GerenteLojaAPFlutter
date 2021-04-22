@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gerente_loja/blocs/login_bloc.dart';
 import 'package:gerente_loja/widgets/input_field.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -7,9 +9,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _loginBloc = LoginBloc();
 
   final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
-        shape: const RoundedRectangleBorder(
+    shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(10)),
     ),
   );
@@ -37,24 +40,44 @@ class _LoginScreenState extends State<LoginScreen> {
                     icon: Icons.person_outline,
                     hint: "Usuário",
                     obscure: false,
+                    stream: _loginBloc.outEmail,
+                    onChanged: _loginBloc.changeEmail,
                   ),
                   InputField(
                     icon: Icons.lock_outline,
                     hint: "Senha",
                     obscure: true,
+                    stream: _loginBloc.outPassword,
+                    onChanged: _loginBloc.changePassword,
                   ),
-                  SizedBox(height: 32.0,),
                   SizedBox(
-                    height: 50,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Color.fromARGB(255, 215, 69, 85), // background
-                        onPrimary: Colors.white, // foreground
-                      ),
-                      child: Text("Entrar"),
-                      onPressed: (){},
-                    ),
-                  )
+                    height: 32.0,
+                  ),
+                  StreamBuilder<bool>(
+                      stream: _loginBloc.outSubmitValid,
+                      builder: (context, snapshot) {
+                        return SizedBox(
+                          height: 50,
+                          child: ElevatedButton(
+                            style: ButtonStyle(backgroundColor:
+                                MaterialStateProperty.resolveWith<Color>(
+                              (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.pressed))
+                                  return Color.fromARGB(255, 219, 50, 155);
+                                else if (states
+                                    .contains(MaterialState.disabled))
+                                  return Color.fromARGB(255, 104, 47, 75);
+                                return Color.fromARGB(255, 236, 9, 99);
+                              },
+                            )),
+                            child: Text(
+                              "Entrar",
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            onPressed: snapshot.hasData ? () {} : null,
+                          ),
+                        );
+                      })
                 ],
               ),
             ),

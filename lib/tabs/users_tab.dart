@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gerente_loja/widgets/input_field.dart';
+
+import 'package:gerente_loja/widgets/user_tile.dart';
 
 class UsersTab extends StatelessWidget {
   @override
@@ -21,7 +22,7 @@ class UsersTab extends StatelessWidget {
         Expanded(
           child: ListView.separated(
               itemBuilder: (context, index){
-                return ListTile(title: Text('teste $index'),);
+                return UserTile();
               },
               separatorBuilder: (context, index){
                 return Divider();

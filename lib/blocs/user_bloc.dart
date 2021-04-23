@@ -3,7 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rxdart/rxdart.dart';
 
 class UserBloc extends BlocBase {
-  final _usersController = BehaviorSubject();
+  final _usersController = BehaviorSubject<List>();
+
+  Stream<List> get outUsers => _usersController.stream;
 
   Map<String, Map<String, dynamic>> _users = {};
 
@@ -11,6 +13,23 @@ class UserBloc extends BlocBase {
 
   UserBloc() {
     _addUsersListener();
+  }
+  
+  void onChangeSearch(String search){
+    if(search.trim().isEmpty){
+      _usersController.add(_users.values.toList());
+    }else{
+      _usersController.add(_filter(search.trim()));
+    }
+  }
+
+ List<Map<String, dynamic>> _filter(String search){
+    List<Map<String, dynamic>> filterdUsers = List.from(_users.values.toList());
+    filterdUsers.retainWhere((user){
+      return user["name"].toUpperCase().contains(search.toUpperCase());
+
+    });
+    return filterdUsers;
   }
 
   void _addUsersListener() {

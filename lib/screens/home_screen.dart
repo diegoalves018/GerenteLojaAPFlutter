@@ -1,3 +1,4 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:gerente_loja/blocs/user_bloc.dart';
 import 'package:gerente_loja/tabs/users_tab.dart';
@@ -56,18 +57,23 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: SafeArea(
-        child: PageView(
-          controller: _pageController,
-          onPageChanged: (p){
-            setState(() {
-              _page = p;
-            });
-          },
-          children: <Widget>[
-            UsersTab(),
-            Container(color: Colors.yellow),
-            Container(color: Colors.green),
-          ],
+        child: BlocProvider(
+          blocs: [
+            Bloc((i) => _userBloc),],
+          dependencies: [],
+          child: PageView(
+            controller: _pageController,
+            onPageChanged: (p){
+              setState(() {
+                _page = p;
+              });
+            },
+            children: <Widget>[
+              UsersTab(),
+              Container(color: Colors.yellow),
+              Container(color: Colors.green),
+            ],
+          ),
         ),
       ),
     );

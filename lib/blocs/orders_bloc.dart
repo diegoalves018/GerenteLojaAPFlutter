@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rxdart/rxdart.dart';
 
 class OrdersBloc extends BlocBase{
+
   final _ordersController = BehaviorSubject<List>();
 
   Firestore _firestore = Firestore.instance;
@@ -16,7 +17,7 @@ class OrdersBloc extends BlocBase{
   }
   
   void _addOrdersListener(){
-    _firestore.collection('orders').snapshots().listen((snapshot) { 
+    _firestore.collection("orders").snapshots().listen((snapshot) {
       snapshot.documentChanges.forEach((change) {
         String oid = change.document.documentID;
 
@@ -36,13 +37,11 @@ class OrdersBloc extends BlocBase{
 
       _ordersController.add(_orders);
     });
-    
   }
 
   @override
   void dispose() {
     _ordersController.close();
         super.dispose();
-
   }
 }

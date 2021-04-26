@@ -1,8 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.alves.gerente_loja">
+
+
    <application
         android:label="gerente_loja"
         android:icon="@mipmap/ic_launcher">
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -37,5 +40,14 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+       <activity
+           android:name="com.yalantis.ucrop.UCropActivity"
+           android:screenOrientation="portrait"
+           android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
+
+
+
+
 </manifest>

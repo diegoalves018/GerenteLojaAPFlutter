@@ -1,11 +1,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.alves.gerente_loja">
 
+    <queries>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+    </queries>
 
    <application
         android:label="gerente_loja"
         android:icon="@mipmap/ic_launcher">
-
+        android:requestLegacyExternalStorage="true"
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -46,8 +51,4 @@
            android:screenOrientation="portrait"
            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
-
-
-
-
 </manifest>

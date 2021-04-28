@@ -6,7 +6,11 @@ class ProductValidator {
   }
 
   String validateTitle (String text){
-    if(text.isEmpty) return "Preencha o título do produto";
+    if(text.isEmpty) {
+      return "Preencha o título do produto";
+    }else if(text.length > 21){
+      return "Título deve ter no máximo 21 caracteres";
+    }
     return null;
   }
 
@@ -19,7 +23,7 @@ class ProductValidator {
     double price = double.tryParse(text);
     if(price != null){
       if(!text.contains(".") || text.split(".")[1].length != 2)
-        return "Utiliza 2 casas decímais";
+        return "Utilize 2 casas decímais";
     }else {
       return "Preço inválido";
     }

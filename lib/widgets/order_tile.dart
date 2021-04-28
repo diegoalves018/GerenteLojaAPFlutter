@@ -54,6 +54,7 @@ class OrderTile extends StatelessWidget {
                       .document(order.documentID)
                       .delete();
                   order.reference.delete();
+                  Navigator.of(context).pop();
                 },
               ),
             ],

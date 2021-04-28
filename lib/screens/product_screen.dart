@@ -38,19 +38,44 @@ class _ProductScreenState extends State<ProductScreen> with ProductValidator {
       backgroundColor: Colors.grey[850],
       appBar: AppBar(
         elevation: 0,
-        title: Text("Adicionar Produto"),
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.remove), onPressed: () {}),
-          StreamBuilder<bool>(
-            stream: _productBloc.outLoading,
+        title: StreamBuilder<bool>(
+            stream: _productBloc.outCreated,
             initialData: false,
             builder: (context, snapshot) {
-              return IconButton(
+              return Text(
+                  snapshot.data ? "Editar Produto" : "Adicionar Produto");
+            }),
+        actions: <Widget>[
+          StreamBuilder<bool>(
+            stream: _productBloc.outCreated,
+            initialData: false,
+            builder: (context, snapshot) {
+              if (snapshot.data)
+                return StreamBuilder<bool>(
+                    stream: _productBloc.outLoading,
+                    initialData: false,
+                    builder: (context, snapshot) {
+                      return IconButton(
+                        icon: Icon(Icons.remove),
+                        onPressed: snapshot.data ? null : (){
+                          _productBloc.deleteProduct();
+                          Navigator.of(context).pop();
+                        },
+                      );
+                    });
+              else
+                return Container();
+            },
+          ),
+          StreamBuilder<bool>(
+              stream: _productBloc.outLoading,
+              initialData: false,
+              builder: (context, snapshot) {
+                return IconButton(
                   icon: Icon(Icons.save),
                   onPressed: snapshot.data ? null : saveProduct,
-              );
-            }
-          ),
+                );
+              }),
         ],
       ),
       body: Stack(
@@ -82,7 +107,8 @@ class _ProductScreenState extends State<ProductScreen> with ProductValidator {
                         validator: validateTitle,
                       ),
                       TextFormField(
-                        initialValue: snapshot.data["price"]?.toStringAsFixed(2),
+                        initialValue:
+                            snapshot.data["price"]?.toStringAsFixed(2),
                         style: _fieldStyle,
                         decoration: _buildDecoration("Preço"),
                         keyboardType:
@@ -112,35 +138,37 @@ class _ProductScreenState extends State<ProductScreen> with ProductValidator {
                     color: snapshot.data ? Colors.black54 : Colors.transparent,
                   ),
                 );
-              }
-          ),
+              }),
         ],
       ),
     );
   }
 
-  void saveProduct() async{
-    if(_formKey.currentState.validate()){
+  void saveProduct() async {
+    if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text("Salvando Produto...",
-        style: TextStyle(color: Colors.white),),
+        content: const Text(
+          "Salvando Produto...",
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Color.fromARGB(255, 208, 10, 146),
         duration: const Duration(minutes: 1),
-      )
-      );
+      ));
 
       bool success = await _productBloc.saveProduct();
 
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(success ? "Produto salvo" : "Erro ao salvar",
-          style: TextStyle(color: Colors.white),),
+        content: Text(
+          success ? "Produto salvo" : "Erro ao salvar",
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Color.fromARGB(255, 208, 10, 146),
-      )
-      );
+      ));
+      Navigator.of(context).pop();
     }
   }
 }
